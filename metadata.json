@@ -1,0 +1,8 @@
+{
+  "name": "Copy of AI Sous Chef",
+  "description": "An intelligent cooking assistant that identifies ingredients from photos, generates recipes, and provides real-time cooking feedback using Gemini.",
+  "requestFramePermissions": [
+    "camera",
+    "geolocation"
+  ]
+}

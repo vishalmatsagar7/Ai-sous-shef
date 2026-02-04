@@ -15,6 +15,7 @@ export default function App() {
   
   const [step, setStep] = useState<"hero" | "history" | "upload" | "scanning" | "ingredients" | "preferences" | "generating" | "recipes" | "cooking">("hero");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Sidebar State
+  const [scanningPreview, setScanningPreview] = useState<string | null>(null);
 
   // Stores all past fridge sessions
   const [history, setHistory] = useState<FridgeSession[]>(() => {
@@ -123,7 +124,7 @@ export default function App() {
         img.src = event.target?.result as string;
         img.onload = () => {
           const canvas = document.createElement("canvas");
-          const MAX_WIDTH = 800;
+          const MAX_WIDTH = 1200; // Increased for better scan preview quality
           const scaleSize = MAX_WIDTH / img.width;
           canvas.width = MAX_WIDTH;
           canvas.height = img.height * scaleSize;
@@ -131,7 +132,7 @@ export default function App() {
           const ctx = canvas.getContext("2d");
           ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
           
-          resolve(canvas.toDataURL("image/jpeg", 0.7)); 
+          resolve(canvas.toDataURL("image/jpeg", 0.8)); 
         };
       };
     });
@@ -152,7 +153,7 @@ export default function App() {
 
       video.onseeked = () => {
         const canvas = document.createElement("canvas");
-        const MAX_WIDTH = 800;
+        const MAX_WIDTH = 1200;
         const scale = MAX_WIDTH / video.videoWidth;
         canvas.width = MAX_WIDTH;
         canvas.height = video.videoHeight * scale;
@@ -160,7 +161,7 @@ export default function App() {
         const ctx = canvas.getContext("2d");
         ctx?.drawImage(video, 0, 0, canvas.width, canvas.height);
         
-        resolve(canvas.toDataURL("image/jpeg", 0.7));
+        resolve(canvas.toDataURL("image/jpeg", 0.8));
       };
       
       video.onerror = () => {
@@ -198,13 +199,12 @@ export default function App() {
 
       if (file.type.startsWith("image/")) {
         thumbnailDataUrl = await compressImage(file);
+        setScanningPreview(thumbnailDataUrl); // Set preview for LoadingState
         scanDataBase64 = getRawBase64(thumbnailDataUrl);
         mimeType = "image/jpeg";
       } else if (file.type.startsWith("video/")) {
-        // For video, we generate a thumbnail for history/UI
         thumbnailDataUrl = await generateVideoThumbnail(file);
-        // And send the full video file (as base64) to the API
-        // NOTE: Large videos might hit browser/API limits. 
+        setScanningPreview(thumbnailDataUrl); // Set preview for LoadingState
         scanDataBase64 = await fileToBase64(file);
       } else {
         throw new Error("Unsupported file type");
@@ -220,6 +220,9 @@ export default function App() {
       console.error(err);
       setError(err.message || "Failed to scan. Please try again.");
       setStep("upload");
+    } finally {
+      // Small delay before clearing preview to avoid flash
+      setTimeout(() => setScanningPreview(null), 500);
     }
   }, []);
 
@@ -376,7 +379,10 @@ export default function App() {
         {/* ── SCANNING ── */}
         {step === "scanning" && (
             <AppShell step="Scanning..." onOpenSidebar={() => setIsSidebarOpen(true)}>
-            <LoadingState message="Analyzing your ingredients..." />
+            <LoadingState 
+              message="Analyzing your ingredients..." 
+              preview={scanningPreview}
+            />
             </AppShell>
         )}
 

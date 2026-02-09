@@ -2,8 +2,8 @@ import React from "react";
 import { Preferences } from "../types";
 
 const OPTIONS: Record<string, string[]> = {
-  diet: ["None", "Vegetarian", "Vegan", "Gluten-Free", "Keto"],
-  cuisine: ["Any", "Italian", "Mexican", "Chinese", "Indian", "Japanese", "American", "Mediterranean", "Thai"],
+  diet: ["None", "Vegetarian", "Indian Vegetarian", "Vegan", "Gluten-Free", "Keto"],
+  cuisine: ["Any", "Indian", "Italian", "Mexican", "Chinese", "Japanese", "American", "Mediterranean", "Thai"],
   skill: ["Beginner", "Intermediate", "Advanced"],
   time: ["Under 15 Min", "Under 30 Min", "Under 1 Hour", "Any"],
 };

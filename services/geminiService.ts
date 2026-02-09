@@ -29,7 +29,7 @@ Return ONLY valid JSON with this schema:
   "total_items_found": 0
 }`;
 
-const RECIPE_PROMPT = (ingredients: string, preferences: Preferences, location?: string) => `You are a world-class chef. Based on these ingredients, suggest 3 recipes.
+const RECIPE_PROMPT = (ingredients: string, preferences: Preferences, location?: string) => `You are a world-class chef specializing in diverse global cuisines. Based on these ingredients, suggest 3 recipes.
 
 Ingredients available:
 ${ingredients}
@@ -42,11 +42,16 @@ Preferences:
 - Prioritize expiring items: ${preferences.prioritizeExpiring}
 ${location ? `- User Location: ${location}` : ''}
 
-Rules:
-- Use ONLY the available ingredients (and common pantry staples like oil, salt, pepper).
+Strict Dietary Rules:
+1. If diet is 'Indian Vegetarian', strictly exclude ALL eggs, egg products, and meat/fish. Dairy (milk, paneer, curd, butter) is permitted.
+2. If diet is 'Vegetarian', follow standard Lacto-Ovo Vegetarian rules (eggs/dairy allowed, no meat/fish).
+3. If diet is 'Vegan', strictly no animal products of any kind.
+4. If cuisine is 'Indian' and diet is 'Indian Vegetarian', prioritize traditional desi flavors and techniques.
+
+Rules for Output:
+- Use ONLY the available ingredients (and common pantry staples like oil, salt, pepper, water).
 - If prioritizing expiring items, at least 1 recipe must use them.
 - If a specific cuisine is requested, prioritize that style.
-- If "Any" cuisine is selected and location is available, you may suggest local regional variations if appropriate.
 - Sort by match score.
 
 Return ONLY valid JSON with this schema:

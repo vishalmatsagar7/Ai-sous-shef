@@ -10,25 +10,26 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
       :root {
-        --cream: #faf7f2;
-        --warm-white: #fffdf9;
-        --sage: #7a9e7e;
-        --sage-light: #a3c4a8;
-        --sage-dark: #5c7a60;
-        --terracotta: #c96b4f;
-        --terracotta-light: #e8a090;
-        --terracotta-dark: #a55540;
-        --charcoal: #2c2c2c;
-        --warm-gray: #6b6560;
-        --light-gray: #e8e3dc;
-        --gold: #c9a96e;
-        --gold-light: #e2c89a;
-        --red-alert: #e04040;
-        --green-ok: #4a9e5c;
-        --blue-info: #5b8db8;
+        /* Vibrant Purple Theme */
+        --cream: #f8f7ff;
+        --warm-white: #ffffff;
+        --sage: #7c3aed; /* Primary Purple */
+        --sage-light: #a78bfa; /* Lavender */
+        --sage-dark: #5b21b6; /* Deep Purple */
+        --terracotta: #d946ef; /* Magenta Accent */
+        --terracotta-light: #f0abfc;
+        --terracotta-dark: #a21caf;
+        --charcoal: #1e1b4b; /* Deep Indigo for text */
+        --warm-gray: #6366f1; /* Indigo Gray */
+        --light-gray: #e0e7ff; /* Light Periwinkle */
+        --gold: #8b5cf6;
+        --gold-light: #c4b5fd;
+        --red-alert: #f43f5e;
+        --green-ok: #10b981;
+        --blue-info: #3b82f6;
         
-        --card: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-        --card-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+        --card: 0 10px 25px -5px rgba(124, 58, 237, 0.1), 0 8px 10px -6px rgba(124, 58, 237, 0.1);
+        --card-hover: 0 20px 25px -5px rgba(124, 58, 237, 0.2), 0 10px 10px -5px rgba(124, 58, 237, 0.1);
       }
 
       * {
@@ -51,14 +52,15 @@
 
       /* Scrollbar */
       ::-webkit-scrollbar {
-        width: 6px;
+        width: 8px;
       }
       ::-webkit-scrollbar-track {
-        background: transparent;
+        background: var(--cream);
       }
       ::-webkit-scrollbar-thumb {
-        background: var(--light-gray);
+        background: var(--sage-light);
         border-radius: 10px;
+        border: 2px solid var(--cream);
       }
 
       /* Animations */
@@ -79,9 +81,9 @@
       }
 
       @keyframes pulse-ring {
-        0% { box-shadow: 0 0 0 0 rgba(122, 158, 126, 0.4); }
-        70% { box-shadow: 0 0 0 12px rgba(122, 158, 126, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(122, 158, 126, 0); }
+        0% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4); }
+        70% { box-shadow: 0 0 0 15px rgba(124, 58, 237, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); }
       }
 
       @keyframes spin {
@@ -89,19 +91,19 @@
       }
 
       .animate-fadeUp {
-        animation: fadeUp 0.5s ease forwards;
+        animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       }
 
       .animate-fadeIn {
-        animation: fadeIn 0.4s ease forwards;
+        animation: fadeIn 0.5s ease forwards;
       }
 
       .animate-spin-slow {
-        animation: spin 1.2s linear infinite;
+        animation: spin 1.5s linear infinite;
       }
 
       .animate-pulse-ring {
-        animation: pulse-ring 2s infinite;
+        animation: pulse-ring 2.5s infinite;
       }
 
       /* Print Styles */
@@ -110,7 +112,6 @@
           margin: 1.5cm;
         }
 
-        /* Reset all layout constraints that hide content */
         html, body, #root, .min-h-screen, main, .flex-1 {
           height: auto !important;
           min-height: 0 !important;
@@ -120,41 +121,35 @@
           background-color: white !important;
         }
 
-        /* Hide UI clutter */
         .no-print, nav, aside, button, .camera-capture, .flex-shrink-0 {
           display: none !important;
         }
 
-        /* Force brand colors to print */
         * {
           -webkit-print-color-adjust: exact !important;
           print-color-adjust: exact !important;
           color-adjust: exact !important;
         }
 
-        /* Structure the printable area */
         main {
           padding: 0 !important;
           margin: 0 !important;
           max-width: none !important;
         }
 
-        /* Ensure cards and grids don't get cut halfway */
         .rounded-2xl, .rounded-xl {
           break-inside: avoid;
           page-break-inside: avoid;
-          border: 1px solid #eee !important;
+          border: 1px solid #ddd !important;
           box-shadow: none !important;
           margin-bottom: 1rem;
         }
 
-        /* Reset font sizes for better readability on paper */
-        h1 { font-size: 24pt !important; }
-        h2 { font-size: 20pt !important; }
-        h3 { font-size: 16pt !important; }
-        p, li, span { font-size: 11pt !important; line-height: 1.4 !important; }
+        h1 { font-size: 26pt !important; color: #5b21b6 !important; }
+        h2 { font-size: 22pt !important; }
+        h3 { font-size: 18pt !important; }
+        p, li, span { font-size: 12pt !important; line-height: 1.5 !important; }
 
-        /* Remove animations that might start with 0 opacity */
         .animate-fadeUp, .animate-fadeIn {
           animation: none !important;
           transform: none !important;

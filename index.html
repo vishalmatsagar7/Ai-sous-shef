@@ -10,26 +10,26 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
       :root {
-        /* Vibrant Purple Theme */
-        --cream: #f8f7ff;
+        /* Enhanced Lush Purple Theme */
+        --cream: #f4f2ff; /* Saturated Lavender Tint */
         --warm-white: #ffffff;
-        --sage: #7c3aed; /* Primary Purple */
+        --sage: #7c3aed; /* Primary Violet */
         --sage-light: #a78bfa; /* Lavender */
-        --sage-dark: #5b21b6; /* Deep Purple */
-        --terracotta: #d946ef; /* Magenta Accent */
+        --sage-dark: #4f46e5; /* Indigo */
+        --terracotta: #d946ef; /* Fuchsia Accent */
         --terracotta-light: #f0abfc;
         --terracotta-dark: #a21caf;
-        --charcoal: #1e1b4b; /* Deep Indigo for text */
-        --warm-gray: #6366f1; /* Indigo Gray */
-        --light-gray: #e0e7ff; /* Light Periwinkle */
+        --charcoal: #1e1b4b; /* Midnight Indigo for text */
+        --warm-gray: #71717a; 
+        --light-gray: #ddd6fe; /* Soft Purple Border */
         --gold: #8b5cf6;
         --gold-light: #c4b5fd;
         --red-alert: #f43f5e;
         --green-ok: #10b981;
         --blue-info: #3b82f6;
         
-        --card: 0 10px 25px -5px rgba(124, 58, 237, 0.1), 0 8px 10px -6px rgba(124, 58, 237, 0.1);
-        --card-hover: 0 20px 25px -5px rgba(124, 58, 237, 0.2), 0 10px 10px -5px rgba(124, 58, 237, 0.1);
+        --card: 0 10px 25px -5px rgba(124, 58, 237, 0.12), 0 8px 10px -6px rgba(124, 58, 237, 0.1);
+        --card-hover: 0 25px 35px -5px rgba(124, 58, 237, 0.25), 0 10px 15px -5px rgba(124, 58, 237, 0.15);
       }
 
       * {
@@ -52,27 +52,21 @@
 
       /* Scrollbar */
       ::-webkit-scrollbar {
-        width: 8px;
+        width: 10px;
       }
       ::-webkit-scrollbar-track {
         background: var(--cream);
       }
       ::-webkit-scrollbar-thumb {
-        background: var(--sage-light);
+        background: linear-gradient(to bottom, var(--sage-light), var(--sage));
         border-radius: 10px;
-        border: 2px solid var(--cream);
+        border: 3px solid var(--cream);
       }
 
       /* Animations */
       @keyframes fadeUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
       }
 
       @keyframes fadeIn {
@@ -80,81 +74,39 @@
         to { opacity: 1; }
       }
 
-      @keyframes pulse-ring {
+      @keyframes pulse-glow {
         0% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4); }
-        70% { box-shadow: 0 0 0 15px rgba(124, 58, 237, 0); }
+        70% { box-shadow: 0 0 0 18px rgba(124, 58, 237, 0); }
         100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); }
       }
 
-      @keyframes spin {
-        to { transform: rotate(360deg); }
+      @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
       }
 
       .animate-fadeUp {
-        animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       }
 
       .animate-fadeIn {
-        animation: fadeIn 0.5s ease forwards;
+        animation: fadeIn 0.6s ease forwards;
       }
 
-      .animate-spin-slow {
-        animation: spin 1.5s linear infinite;
+      .animate-float {
+        animation: float 4s ease-in-out infinite;
       }
 
-      .animate-pulse-ring {
-        animation: pulse-ring 2.5s infinite;
+      .animate-pulse-glow {
+        animation: pulse-glow 2.5s infinite;
       }
 
       /* Print Styles */
       @media print {
-        @page {
-          margin: 1.5cm;
-        }
-
-        html, body, #root, .min-h-screen, main, .flex-1 {
-          height: auto !important;
-          min-height: 0 !important;
-          overflow: visible !important;
-          position: static !important;
-          display: block !important;
-          background-color: white !important;
-        }
-
-        .no-print, nav, aside, button, .camera-capture, .flex-shrink-0 {
-          display: none !important;
-        }
-
-        * {
-          -webkit-print-color-adjust: exact !important;
-          print-color-adjust: exact !important;
-          color-adjust: exact !important;
-        }
-
-        main {
-          padding: 0 !important;
-          margin: 0 !important;
-          max-width: none !important;
-        }
-
-        .rounded-2xl, .rounded-xl {
-          break-inside: avoid;
-          page-break-inside: avoid;
-          border: 1px solid #ddd !important;
-          box-shadow: none !important;
-          margin-bottom: 1rem;
-        }
-
-        h1 { font-size: 26pt !important; color: #5b21b6 !important; }
-        h2 { font-size: 22pt !important; }
-        h3 { font-size: 18pt !important; }
-        p, li, span { font-size: 12pt !important; line-height: 1.5 !important; }
-
-        .animate-fadeUp, .animate-fadeIn {
-          animation: none !important;
-          transform: none !important;
-          opacity: 1 !important;
-        }
+        @page { margin: 1cm; }
+        body { background: white !important; }
+        .no-print { display: none !important; }
       }
     </style>
   <script type="importmap">

@@ -73,8 +73,8 @@ export default function UploadZone({ onUpload, error }: UploadZoneProps) {
         />
       )}
 
-      <p className="text-sm text-center mb-5" style={{ color: "var(--warm-gray)", fontFamily: "'DM Sans', sans-serif" }}>
-        Take a photo or video of your fridge to get started
+      <p className="text-sm text-center mb-6 font-medium" style={{ color: "var(--sage)", fontFamily: "'DM Sans', sans-serif" }}>
+        Show your Chef the ingredients you have to work with
       </p>
 
       {/* Drop Zone */}
@@ -82,25 +82,25 @@ export default function UploadZone({ onUpload, error }: UploadZoneProps) {
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
-        className="relative w-full rounded-3xl border-2 border-dashed transition-all duration-300 flex flex-col items-center justify-center overflow-hidden"
+        className="relative w-full rounded-[2.5rem] border-2 border-dashed transition-all duration-500 flex flex-col items-center justify-center overflow-hidden shadow-xl"
         style={{
-          borderColor: isDragging ? "var(--sage)" : "var(--light-gray)",
+          borderColor: isDragging ? "var(--terracotta)" : "var(--light-gray)",
           background: isDragging
-            ? "rgba(122,158,126,0.06)"
+            ? "rgba(124, 58, 237, 0.08)"
             : preview
-            ? "var(--charcoal)"
+            ? "#0f172a"
             : "var(--warm-white)",
-          minHeight: "320px",
+          minHeight: "380px",
         }}
       >
-        {/* Preview */}
+        {/* Preview Container */}
         {preview ? (
           <>
             {previewType === "image" ? (
               <img
                 src={preview}
                 alt="Preview"
-                className="absolute inset-0 w-full h-full object-cover opacity-60"
+                className="absolute inset-0 w-full h-full object-cover opacity-70 transition-opacity"
               />
             ) : (
               <video
@@ -112,76 +112,96 @@ export default function UploadZone({ onUpload, error }: UploadZoneProps) {
             <div className="relative z-10">
                 <button
                     onClick={clearPreview}
-                    className="px-6 py-3 rounded-xl bg-white/20 backdrop-blur-md text-white border border-white/30 font-medium hover:bg-white/30 transition-all"
+                    className="px-8 py-3.5 rounded-2xl bg-violet-900/60 backdrop-blur-xl text-white border border-white/30 font-bold hover:bg-violet-800/80 transition-all shadow-2xl"
                 >
-                    Change File
+                    Change Media
                 </button>
             </div>
           </>
         ) : (
-          <div className="relative z-10 flex flex-col items-center gap-6 px-6 py-8 w-full max-w-sm">
+          <div className="relative z-10 flex flex-col items-center gap-8 px-6 py-10 w-full max-w-sm">
+            {/* Animated Main Icon - Now permanent Purple Gradient */}
             <div
-              className="w-16 h-16 rounded-2xl flex items-center justify-center"
+              className={`w-20 h-20 rounded-[1.75rem] flex items-center justify-center shadow-lg transition-transform duration-500 ${isDragging ? 'scale-110' : 'animate-float'}`}
               style={{
-                background: isDragging ? "var(--sage)" : "var(--light-gray)",
-                transition: "background 0.3s ease",
+                background: "linear-gradient(135deg, var(--sage), var(--terracotta))",
+                boxShadow: "0 15px 35px rgba(124, 58, 237, 0.4)",
               }}
             >
               <svg
-                width="28"
-                height="28"
+                width="32"
+                height="32"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke={isDragging ? "#fff" : "var(--warm-gray)"}
-                strokeWidth="1.8"
+                stroke="white"
+                strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                <rect x="3" y="3" width="18" height="18" rx="3" ry="3" />
-                <circle cx="8.5" cy="8.5" r="1.5" />
-                <path d="M21 15l-5-5L5 21" />
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="17 8 12 3 7 8" />
+                <line x1="12" y1="3" x2="12" y2="15" />
               </svg>
             </div>
 
-            <p className="text-sm text-center" style={{ color: "var(--charcoal)", fontFamily: "'DM Sans', sans-serif" }}>
-                Drag & drop, or choose an option:
-            </p>
+            <div className="text-center">
+              <p className="text-lg font-bold mb-1" style={{ color: "var(--charcoal)" }}>
+                Drop your fridge tour here
+              </p>
+              <p className="text-sm opacity-60" style={{ color: "var(--charcoal)" }}>
+                JPG, PNG or MP4 videos
+              </p>
+            </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 w-full">
-                <button
-                    onClick={triggerUpload}
-                    className="flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-sm font-medium transition-all hover:scale-[1.02] active:scale-[0.98]"
-                    style={{
-                        background: "white",
-                        border: "1px solid var(--light-gray)",
-                        color: "var(--charcoal)",
-                        boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
-                    }}
-                >
-                    <span className="text-lg">📁</span> File
-                </button>
-                <button
-                    onClick={triggerVideo}
-                    className="flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-sm font-medium transition-all hover:scale-[1.02] active:scale-[0.98]"
-                    style={{
-                        background: "white",
-                        border: "1px solid var(--light-gray)",
-                        color: "var(--charcoal)",
-                        boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
-                    }}
-                >
-                    <span className="text-lg">🎥</span> Video
-                </button>
+            {/* Styled Media Buttons */}
+            <div className="flex flex-col gap-3 w-full">
+                <div className="flex gap-3">
+                    <button
+                        onClick={triggerUpload}
+                        className="flex-1 py-4 px-4 rounded-2xl flex flex-col items-center justify-center gap-2 text-[11px] font-black uppercase tracking-widest transition-all hover:scale-[1.05] active:scale-[0.95] group"
+                        style={{
+                            background: "white",
+                            border: "2px solid var(--light-gray)",
+                            color: "var(--sage)",
+                        }}
+                    >
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:text-violet-600">
+                           <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                           <polyline points="13 2 13 9 20 9"></polyline>
+                        </svg>
+                        Choose File
+                    </button>
+                    <button
+                        onClick={triggerVideo}
+                        className="flex-1 py-4 px-4 rounded-2xl flex flex-col items-center justify-center gap-2 text-[11px] font-black uppercase tracking-widest transition-all hover:scale-[1.05] active:scale-[0.95] group"
+                        style={{
+                            background: "white",
+                            border: "2px solid var(--light-gray)",
+                            color: "var(--sage)",
+                        }}
+                    >
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:text-indigo-600">
+                           <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                           <polygon points="10 8 14 10 10 12 10 8"></polygon>
+                           <line x1="2" y1="17" x2="22" y2="17"></line>
+                        </svg>
+                        Add Video
+                    </button>
+                </div>
+                
                 <button
                     onClick={triggerCamera}
-                    className="flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-sm font-medium transition-all hover:scale-[1.02] active:scale-[0.98]"
+                    className="w-full py-5 rounded-2xl flex items-center justify-center gap-3 text-sm font-bold transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg animate-pulse-glow"
                     style={{
                         background: "linear-gradient(135deg, var(--sage), var(--sage-dark))",
                         color: "white",
-                        boxShadow: "0 4px 12px rgba(122,158,126,0.3)"
                     }}
                 >
-                    <span className="text-lg">📷</span> Photo
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                       <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                       <circle cx="12" cy="13" r="4"></circle>
+                    </svg>
+                    Snap Fresh Photo
                 </button>
             </div>
           </div>
@@ -204,18 +224,17 @@ export default function UploadZone({ onUpload, error }: UploadZoneProps) {
         />
       </div>
 
-      {/* Error */}
+      {/* Error Message - Vibrant Red/Purple */}
       {error && (
         <div
-          className="mt-4 p-3 rounded-xl text-sm text-center"
+          className="mt-6 p-4 rounded-2xl text-sm font-bold text-center animate-bounce"
           style={{
-            background: "rgba(224,64,64,0.08)",
+            background: "rgba(244,63,94,0.1)",
             color: "var(--red-alert)",
-            border: "1px solid rgba(224,64,64,0.2)",
-            fontFamily: "'DM Sans', sans-serif",
+            border: "2px solid rgba(244,63,94,0.2)",
           }}
         >
-          ⚠️ {error}
+          🚨 {error}
         </div>
       )}
     </div>

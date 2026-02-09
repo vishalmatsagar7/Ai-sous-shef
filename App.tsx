@@ -324,7 +324,7 @@ export default function App() {
                 <div 
                     key={s.id}
                     onClick={() => loadSession(s.id)}
-                    className="bg-white rounded-2xl p-3 border border-gray-200 shadow-sm flex gap-4 items-center cursor-pointer hover:shadow-md transition-all relative group"
+                    className="bg-white rounded-2xl p-3 border-2 border-indigo-50 shadow-sm flex gap-4 items-center cursor-pointer hover:shadow-xl hover:border-violet-200 transition-all relative group"
                 >
                     <div className="w-20 h-20 rounded-xl bg-gray-100 flex-shrink-0 overflow-hidden">
                     <img src={s.imageThumbnail} alt="Fridge" className="w-full h-full object-cover" />
@@ -455,18 +455,18 @@ interface AppShellProps {
 function AppShell({ step, onOpenSidebar, onBack, children }: AppShellProps) {
   return (
     <div className="flex flex-col h-full w-full">
-      {/* Top Nav */}
+      {/* Top Nav - Enhanced with Violet Glassmorphism */}
       <nav
-        className="sticky top-0 z-10 flex items-center justify-between px-5 py-4 w-full no-print"
-        style={{ background: "rgba(250,247,242,0.95)", backdropFilter: "blur(12px)", borderBottom: "1px solid var(--light-gray)" }}
+        className="sticky top-0 z-10 flex items-center justify-between px-5 py-4 w-full no-print border-b border-indigo-100"
+        style={{ background: "rgba(244, 242, 255, 0.85)", backdropFilter: "blur(20px)" }}
       >
         <div className="flex items-center gap-3">
-          {/* Sidebar Toggle (Hamburger) - Hidden on desktop since sidebar is persistent */}
+          {/* Sidebar Toggle (Hamburger) */}
           <button 
             onClick={onOpenSidebar}
-            className="p-1 -ml-1 rounded-lg hover:bg-black/5 transition-colors md:hidden"
+            className="p-2 rounded-xl hover:bg-violet-100 transition-colors md:hidden text-violet-600"
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <line x1="3" y1="12" x2="21" y2="12"></line>
               <line x1="3" y1="6" x2="21" y2="6"></line>
               <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -475,8 +475,8 @@ function AppShell({ step, onOpenSidebar, onBack, children }: AppShellProps) {
         </div>
 
         <span
-          className="text-sm font-medium tracking-wide truncate max-w-[150px] md:max-w-none"
-          style={{ color: "var(--warm-gray)", fontFamily: "'DM Sans', sans-serif" }}
+          className="text-sm font-bold tracking-widest uppercase truncate max-w-[180px] md:max-w-none"
+          style={{ color: "var(--sage)", fontFamily: "'DM Sans', sans-serif" }}
         >
           {step}
         </span>
@@ -485,8 +485,8 @@ function AppShell({ step, onOpenSidebar, onBack, children }: AppShellProps) {
             {onBack && (
                  <button
                  onClick={onBack}
-                 className="flex items-center gap-1 text-sm transition-colors hover:opacity-70 px-2 py-1 rounded-md hover:bg-black/5"
-                 style={{ color: "var(--warm-gray)", fontFamily: "'DM Sans', sans-serif" }}
+                 className="flex items-center gap-1 text-xs font-black uppercase tracking-widest transition-all hover:opacity-70 px-3 py-2 rounded-xl bg-violet-100 text-violet-700"
+                 style={{ fontFamily: "'DM Sans', sans-serif" }}
                >
                  Back
                </button>

@@ -106,18 +106,55 @@
 
       /* Print Styles */
       @media print {
-        .no-print, nav, aside, button, .camera-capture {
-          display: none !important;
+        @page {
+          margin: 1.5cm;
         }
-        body {
+
+        /* Reset all layout constraints that hide content */
+        html, body, #root, .min-h-screen, main, .flex-1 {
+          height: auto !important;
+          min-height: 0 !important;
+          overflow: visible !important;
+          position: static !important;
+          display: block !important;
           background-color: white !important;
         }
+
+        /* Hide UI clutter */
+        .no-print, nav, aside, button, .camera-capture, .flex-shrink-0 {
+          display: none !important;
+        }
+
+        /* Force brand colors to print */
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          color-adjust: exact !important;
+        }
+
+        /* Structure the printable area */
         main {
           padding: 0 !important;
           margin: 0 !important;
-          width: 100% !important;
           max-width: none !important;
         }
+
+        /* Ensure cards and grids don't get cut halfway */
+        .rounded-2xl, .rounded-xl {
+          break-inside: avoid;
+          page-break-inside: avoid;
+          border: 1px solid #eee !important;
+          box-shadow: none !important;
+          margin-bottom: 1rem;
+        }
+
+        /* Reset font sizes for better readability on paper */
+        h1 { font-size: 24pt !important; }
+        h2 { font-size: 20pt !important; }
+        h3 { font-size: 16pt !important; }
+        p, li, span { font-size: 11pt !important; line-height: 1.4 !important; }
+
+        /* Remove animations that might start with 0 opacity */
         .animate-fadeUp, .animate-fadeIn {
           animation: none !important;
           transform: none !important;

@@ -17,7 +17,14 @@ export default function Sidebar({ isOpen, onClose, currentStep, onNavigate }: Si
   };
 
   const handlePrint = () => {
-    window.print();
+    // If mobile sidebar is open, close it first for a clean print
+    if (isOpen) {
+      onClose();
+      // Brief timeout to allow CSS transitions to finish before the print dialog freezes the UI thread
+      setTimeout(() => window.print(), 300);
+    } else {
+      window.print();
+    }
   };
 
   return (

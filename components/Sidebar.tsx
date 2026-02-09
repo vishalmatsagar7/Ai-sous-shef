@@ -16,11 +16,15 @@ export default function Sidebar({ isOpen, onClose, currentStep, onNavigate }: Si
     }
   };
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <>
       {/* Backdrop (Mobile Only) */}
       <div
-        className={`fixed inset-0 z-40 bg-black/20 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
+        className={`fixed inset-0 z-40 bg-black/20 backdrop-blur-sm transition-opacity duration-300 md:hidden no-print ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         onClick={onClose}
@@ -28,10 +32,9 @@ export default function Sidebar({ isOpen, onClose, currentStep, onNavigate }: Si
 
       {/* Sidebar Panel */}
       <aside
-        className={`fixed top-0 left-0 z-50 h-full w-64 bg-[#faf7f2] shadow-2xl md:shadow-none md:border-r border-[var(--light-gray)] transform transition-transform duration-300 ease-out 
+        className={`fixed top-0 left-0 z-50 h-full w-64 bg-[#faf7f2] shadow-2xl md:shadow-none md:border-r border-[var(--light-gray)] transform transition-transform duration-300 ease-out no-print
           ${isOpen ? "translate-x-0" : "-translate-x-full"} 
-          md:translate-x-0 md:static md:h-screen md:block`} // md:static and md:translate-x-0 make it permanent on desktop
-        style={{  }}
+          md:translate-x-0 md:static md:h-screen md:block`}
       >
         {/* Header */}
         <div className="p-6 flex items-center justify-between border-b border-[var(--light-gray)]">
@@ -67,6 +70,15 @@ export default function Sidebar({ isOpen, onClose, currentStep, onNavigate }: Si
             label="History" 
             isActive={currentStep === "history"} 
             onClick={() => handleNav("history")} 
+          />
+          
+          <div className="h-px bg-[var(--light-gray)] my-2 opacity-50" />
+          
+          <NavItem 
+            icon="🖨️" 
+            label="Print Page" 
+            isActive={false} 
+            onClick={handlePrint} 
           />
         </nav>
 

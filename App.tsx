@@ -342,7 +342,7 @@ export default function App() {
                     </div>
                     <button 
                     onClick={(e) => deleteSession(e, s.id)}
-                    className="absolute top-3 right-3 text-gray-400 hover:text-red-500 p-2"
+                    className="absolute top-3 right-3 text-gray-400 hover:text-red-500 p-2 no-print"
                     >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="3 6 5 6 21 6"></polyline>
@@ -352,7 +352,7 @@ export default function App() {
                 </div>
                 ))}
                 
-                <div className="col-span-full mt-4">
+                <div className="col-span-full mt-4 no-print">
                      <button
                         onClick={() => setStep("upload")}
                         className="w-full md:w-auto md:px-8 py-4 rounded-2xl text-white font-semibold text-sm tracking-wide transition-all shadow-lg hover:shadow-xl hover:scale-[1.01]"
@@ -457,7 +457,7 @@ function AppShell({ step, onOpenSidebar, onBack, children }: AppShellProps) {
     <div className="flex flex-col h-full w-full">
       {/* Top Nav */}
       <nav
-        className="sticky top-0 z-10 flex items-center justify-between px-5 py-4 w-full"
+        className="sticky top-0 z-10 flex items-center justify-between px-5 py-4 w-full no-print"
         style={{ background: "rgba(250,247,242,0.95)", backdropFilter: "blur(12px)", borderBottom: "1px solid var(--light-gray)" }}
       >
         <div className="flex items-center gap-3">

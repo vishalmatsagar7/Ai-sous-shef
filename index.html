@@ -103,6 +103,27 @@
       .animate-pulse-ring {
         animation: pulse-ring 2s infinite;
       }
+
+      /* Print Styles */
+      @media print {
+        .no-print, nav, aside, button, .camera-capture {
+          display: none !important;
+        }
+        body {
+          background-color: white !important;
+        }
+        main {
+          padding: 0 !important;
+          margin: 0 !important;
+          width: 100% !important;
+          max-width: none !important;
+        }
+        .animate-fadeUp, .animate-fadeIn {
+          animation: none !important;
+          transform: none !important;
+          opacity: 1 !important;
+        }
+      }
     </style>
   <script type="importmap">
 {
